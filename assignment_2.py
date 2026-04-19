@@ -17,13 +17,8 @@ def binary_search(arr, target):
             high = mid - 1
     return -1
 
-def merge_sort(arr):
-    if len(arr) <= 1:
-        return arr
-    mid = len(arr) // 2
-    left = merge_sort(arr[:mid])
-    right = merge_sort(arr[mid:])
-    return merge(left, right)
+arr = [10,20,40,70,89,100]
+print("Binary Search",binary_search(arr, 89))
 
 def merge(left, right):
     result = []
@@ -37,6 +32,17 @@ def merge(left, right):
     result.extend(right[j:])
     return result
 
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    return merge(left, right)
+
+
+arr2 = [10,20,32,11,3,6,52]
+print("Merge Sort:",merge_sort(arr2))
 
 # -------- TASK 2 --------
 def quick_sort(arr):
@@ -47,7 +53,7 @@ def quick_sort(arr):
     mid = [x for x in arr if x == pivot]
     right = [x for x in arr if x > pivot]
     return quick_sort(left) + mid + quick_sort(right)
-
+print("Quick Sort: ",quick_sort(arr2))
 
 # -------- TASK 3 --------
 def knapsack_01(weights, values, W):
@@ -60,6 +66,8 @@ def knapsack_01(weights, values, W):
             else:
                 dp[i][w] = dp[i-1][w]
     return dp[n][W]
+
+print("Knapsack: ",knapsack_01([10,20,30],[60,100,120],50))
 
 
 # -------- TASK 4 --------
@@ -83,6 +91,41 @@ def fib_dp(n):
     for _ in range(2, n+1):
         a, b = b, a+b
     return b
+
+print("DP ",fib_dp(10))
+print("Naive ",fib_naive(10))
+print("Memo ",fib_memo(10))
+
+# Fibonacci time comparison graph
+n_values = [5, 10, 15, 20, 25, 28]
+naive_times, memo_times, dp_times = [], [], []
+
+for n in n_values:
+    start = time.perf_counter()
+    fib_naive(n)
+    naive_times.append(time.perf_counter() - start)
+
+    fib_memo.cache_clear()
+    start = time.perf_counter()
+    fib_memo(n)
+    memo_times.append(time.perf_counter() - start)
+
+    start = time.perf_counter()
+    fib_dp(n)
+    dp_times.append(time.perf_counter() - start)
+
+'''
+plt.plot(n_values, naive_times, marker='o', label='Naive')
+plt.plot(n_values, memo_times, marker='o', label='Memoized')
+plt.plot(n_values, dp_times, marker='o', label='DP')
+plt.xlabel('n')
+plt.ylabel('Time (seconds)')
+plt.title('Fibonacci Time Comparison')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+'''
 
 
 # -------- TASK 5 --------
@@ -168,3 +211,12 @@ def tsp_held_karp(dist):
     tour.reverse()
 
     return best_len, tour
+
+
+# TSP output
+cities = [(0, 0), (1, 5), (5, 2), (6, 6)]
+dist = build_dist_matrix(cities)
+
+print("TSP Brute Force:", tsp_brute_force(dist))
+print("TSP Nearest Neighbour:", tsp_nearest_neighbour(dist))
+print("TSP Held Karp:", tsp_held_karp(dist))

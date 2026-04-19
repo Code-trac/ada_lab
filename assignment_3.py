@@ -1,3 +1,4 @@
+# -------- TASK 1 --------
 # Adjacency List Representation
 
 graph = {
@@ -32,6 +33,7 @@ for row in matrix:
     print(row)
 
 
+# -------- TASK 2 --------
 from collections import deque
 
 def bfs(graph,start):
@@ -52,6 +54,8 @@ def bfs(graph,start):
 
 print("BFS Traversal:")
 bfs(graph,'A')
+print()
+
 
 
 def dfs(graph,node,visited=set()):
@@ -65,8 +69,11 @@ def dfs(graph,node,visited=set()):
 
 print("DFS Traversal:")
 dfs(graph,'A')
+print()
 
 
+
+# -------- TASK 3 --------
 def topological_sort(graph):
 
     visited=set()
@@ -101,8 +108,11 @@ graph2={
 }
 
 print("Topological Order:",topological_sort(graph2))
+print()
 
 
+
+# -------- TASK 4 --------
 import heapq
 
 graph3={
@@ -135,8 +145,11 @@ def dijkstra(graph,start):
     return distances
 
 print("Shortest Paths:",dijkstra(graph3,'A'))
+print()
 
 
+
+# -------- TASK 5 --------
 import heapq
 
 graph4={
